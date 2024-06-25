@@ -1,0 +1,67 @@
+.radioBG {
+    background-color: rgb(44, 47, 50);
+
+    position: relative;
+
+    border-radius: 10em;
+    color: rgb(168, 168, 168);
+    box-shadow: inset 3px 3px 5px rgb(24, 24, 27), inset -3px -3px 5px rgb(60, 60, 67);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    aspect-ratio: 1/1;
+
+    min-width: 50px;
+    min-height: 50px;
+    margin: 1em;
+
+    transition: scale 0.3s;
+}
+
+.radioBG:hover {
+    scale: 1.07;
+}
+
+.radioBG.toggle {
+    box-shadow: 2px 2px 6px rgb(24, 24, 27), -5px -5px 20px rgba(91, 191, 161, 0.2);
+}
+
+.radioExpand {
+    position: relative;
+    background-image: linear-gradient(-45deg, rgb(66, 147, 122), rgb(72, 178, 146), rgb(91, 204, 170));
+    height: 100%;
+    width: 100%;
+    scale: 0.01;
+    transition: scale 0.4s;
+    transition-timing-function: cubic-bezier(0.68, -0.35, 0.265, 1.55);
+
+    border-radius: 10em;
+}
+
+.radioExpand.toggle {
+    scale: 1;
+}
+
+.radioDot {
+    position: absolute;
+
+    background-image: linear-gradient(-45deg, rgb(51, 54, 59), rgb(38, 40, 44));
+    height: 40%;
+    width: 40%;
+
+    scale: 0.75;
+    border-radius: 4em;
+    border-style: none;
+    box-shadow: 1px 1px 3px rgb(24, 24, 27), -1px -1px 3px rgb(60, 60, 67);
+
+    transition: box-shadow 0.4s, scale 0.4s cubic-bezier(0.68, -0.35, 0.265, 1.55);
+
+
+
+}
+
+.radioDot.toggle {
+    scale: 1;
+    box-shadow: 1px 1px 3px rgb(24, 24, 27), -1px -1px 3px rgb(98, 169, 158);
+}
