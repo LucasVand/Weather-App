@@ -42,7 +42,9 @@
         opacity: 1;
         scale: 1.08;
     }
+
 }
+
 
 .buttonBG:active {
     scale: 0.95;
@@ -73,6 +75,8 @@
 .buttonBGoverlay.toggle {
     box-shadow: inset 2px 2px 6px rgb(72, 122, 110), inset -2px -2px 6px rgb(134, 220, 201);
 }
+
+
 
 .buttonChild {
     display: flex;

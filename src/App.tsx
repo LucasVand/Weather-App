@@ -4,6 +4,7 @@ import Toggle from './Components/Toggle/Toggle'
 import RadioButton from './Components/RadioButton/RadioButton'
 import CircleButton from './Components/CircleButton/CircleButton'
 import Button from './Components/Button/Button'
+import ProgressBar from './Components/ProgressBar/ProgressBar'
 
 //rgb(86, 211, 174) original accent Color!!!
 
@@ -28,6 +29,7 @@ function App() {
         <StaticBox height={3}> </StaticBox>
         <StaticBox height={2}> </StaticBox>
         <StaticBox height={1}> </StaticBox>
+        <ProgressBar progress={0.5}>Percentage</ProgressBar>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -56,8 +58,9 @@ function App() {
       </div>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <Button></Button>
-        <Button on={bb} onClick={() => { setBB(!bb) }}>This is Large Text</Button>
+        <Button>This is Large Text</Button>
       </div>
+
 
     </>
   )
