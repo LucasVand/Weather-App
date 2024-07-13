@@ -1,4 +1,4 @@
-import { Children } from 'react'
+
 import StaticBox from '../StaticBox/StaticBox'
 import './ProgressBar.css'
 
