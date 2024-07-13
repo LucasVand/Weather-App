@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import StaticBox from "../Components/StaticBox/StaticBox"
 
 import { weatherDataPromise, defaultWeather } from "../WeatherAPI"
-import Greeting from "./Greeting"
+
 import './Temperature.css'
 
 function TemperatureView() {

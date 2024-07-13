@@ -1,7 +1,7 @@
 import StaticBox from "../Components/StaticBox/StaticBox"
 import { useState, useEffect } from "react"
 import { weatherDataPromise, defaultWeather } from "../WeatherAPI"
-
+import './Greeting.css'
 
 function Greeting() {
     const time: Date = new Date()
