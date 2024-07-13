@@ -1,0 +1,38 @@
+.tempCont {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.cityText {
+    font-size: 2em;
+    padding-top: 0.3em;
+
+    font-weight: 500;
+}
+
+.rainTotal {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.weatherWidgetCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    position: relative;
+}
+
+.weatherWidgetTitle {
+    font-size: 0.8em;
+    height: 100%;
+}
+
+.relitiveHumidityDesc {
+    padding-top: 1em;
+    font-size: 0.5em;
+}
