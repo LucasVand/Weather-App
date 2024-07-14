@@ -48,7 +48,7 @@ function Greeting() {
                 <div >
                     <div>
                         <div style={{ fontSize: '0.8em' }}>{timeOfDayMessage()}</div>
-                        <div style={{ fontSize: '0.6em' }}> {days[time.getDay()] + ' ' + months[time.getMonth()] + ' ' + time.getDate() + ' ' + hour()[0] + ':' + time.getMinutes() + ' ' + hour()[1]} </div>
+                        <div style={{ fontSize: '0.6em' }}> {days[time.getDay()] + ' ' + months[time.getMonth()] + ' ' + time.getDate() + ' ' + hour()[0] + ':' + (time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes()) + ' ' + hour()[1]} </div>
                     </div>
                     <div className="cityText">{weatherData.location.locationData.city + ', ' + weatherData.location.locationData.principalSubdivision + ', ' + weatherData.location.locationData.countryCode}</div>
                 </div>

@@ -19,11 +19,11 @@ export const defaultWeather: WeatherData = {
     },
     hourly: {
 
-        precipitationChance: 30,
-        dew_point: 18
+        precipitationChance: new Float32Array(168),
+        dew_point: new Float32Array(168)
     },
     daily: {
-        precipitation: 5
+        precipitation: new Float32Array(7)
     }
 
 }
@@ -45,8 +45,8 @@ interface Current {
 }
 interface Hourly {
 
-    precipitationChance: number
-    dew_point: number
+    precipitationChance: Float32Array
+    dew_point: Float32Array
 }
 interface Location {
     longitude: number,
@@ -54,7 +54,7 @@ interface Location {
     locationData: any
 }
 interface Daily {
-    precipitation: number
+    precipitation: Float32Array
 }
 
 var lat = 44.51857
@@ -63,6 +63,7 @@ var long = -80.81476
 async function getWeather() {
     apiCallCount++;
     console.log(apiCallCount)
+
 
     //Getting Location
     if (navigator.geolocation) {
@@ -81,7 +82,7 @@ async function getWeather() {
         "latitude": lat,
         "longitude": long,
         "current": ["temperature_2m", "relative_humidity_2m", "apparent_temperature"],
-        "hourly": ["precipitation_probability", "dew_point_2m"],
+        "hourly": ["dew_point_2m", "precipitation_probability"],
         "daily": "precipitation_sum"
     };
     const url = "https://api.open-meteo.com/v1/forecast";
@@ -113,13 +114,14 @@ async function getWeather() {
         },
         hourly: {
 
-            precipitationChance: hourly.variables(0)!.value(),
-            dew_point: hourly.variables(1)!.value(),
+            precipitationChance: hourly.variables(1)!.valuesArray() || new Float32Array(168),
+            dew_point: hourly.variables(0)!.valuesArray() || new Float32Array(168),
         },
         daily: {
-            precipitation: daily.variables(0)!.value()
+            precipitation: daily.variables(0)!.valuesArray() || new Float32Array(7)
         }
     };
+    console.log(hourly.variables(0)!.valuesArray())
 
     return weatherData
 }

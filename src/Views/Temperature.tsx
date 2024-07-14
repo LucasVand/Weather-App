@@ -52,9 +52,9 @@ function TemperatureView() {
                         <StaticBox inset={true}>
                             <div className="weatherWidget">
                                 <div className="weatherWidgetTitle"> <Cloud></Cloud> {"Precipitation"} </div>
-                                <div className="rainTotal">{weatherData.daily.precipitation + 'mm'}</div>
+                                <div className="rainTotal">{weatherData.daily.precipitation[0].toFixed(0) + 'mm'}</div>
                                 <div style={{ fontSize: '0.5em' }}>in last 24 hours</div>
-                                <div style={{ fontSize: '1.4em' }}>{weatherData.hourly.precipitationChance + '%'}</div>
+                                <div style={{ fontSize: '1.4em' }}>{weatherData.hourly.precipitationChance[0].toFixed(0) + '%'}</div>
                             </div>
                         </StaticBox>
                         <StaticBox inset={true}>
@@ -62,7 +62,26 @@ function TemperatureView() {
                                 <div className="weatherWidgetTitle"> <Humidity></Humidity> {" Humidity"} </div>
                                 <div className="relitiveHumidityDesc">Relitive Humidity</div>
                                 <div style={{ fontSize: '2.4em', fontWeight: '600' }}>{weatherData.current.relative_humidity_2m.toFixed(0) + '%'}</div>
-                                <div style={{ fontSize: '0.7em' }}>{'Dew Point is ' + weatherData.hourly.dew_point.toFixed(0) + '°C'}</div>
+                                <div style={{ fontSize: '0.7em' }}>{'Dew Point is ' + weatherData.hourly.dew_point[0].toFixed(0) + '°C'}</div>
+                            </div>
+
+                        </StaticBox>
+                    </div>
+                    <div className="weatherWidgetCont">
+                        <StaticBox inset={true}>
+                            <div className="weatherWidget">
+                                <div className="weatherWidgetTitle"> <Cloud></Cloud> {"Precipitation"} </div>
+                                <div className="rainTotal">{weatherData.daily.precipitation[0].toFixed(0) + 'mm'}</div>
+                                <div style={{ fontSize: '0.5em' }}>in last 24 hours</div>
+                                <div style={{ fontSize: '1.4em' }}>{weatherData.hourly.precipitationChance[0].toFixed(0) + '%'}</div>
+                            </div>
+                        </StaticBox>
+                        <StaticBox inset={true}>
+                            <div className="weatherWidget">
+                                <div className="weatherWidgetTitle"> <Humidity></Humidity> {" Humidity"} </div>
+                                <div className="relitiveHumidityDesc">Relitive Humidity</div>
+                                <div style={{ fontSize: '2.4em', fontWeight: '600' }}>{weatherData.current.relative_humidity_2m.toFixed(0) + '%'}</div>
+                                <div style={{ fontSize: '0.7em' }}>{'Dew Point is ' + weatherData.hourly.dew_point[0].toFixed(0) + '°C'}</div>
                             </div>
 
                         </StaticBox>
