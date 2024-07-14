@@ -1,6 +1,7 @@
 import StaticBox from "../Components/StaticBox/StaticBox"
 import { useState, useEffect } from "react"
 import { weatherDataPromise, defaultWeather } from "../WeatherAPI"
+
 import './Greeting.css'
 
 function Greeting() {
@@ -44,7 +45,7 @@ function Greeting() {
     return (
         <>
             <StaticBox>
-                <div className="greetingCont">
+                <div >
                     <div>
                         <div style={{ fontSize: '0.8em' }}>{timeOfDayMessage()}</div>
                         <div style={{ fontSize: '0.6em' }}> {days[time.getDay()] + ' ' + months[time.getMonth()] + ' ' + time.getDate() + ' ' + hour()[0] + ':' + time.getMinutes() + ' ' + hour()[1]} </div>
