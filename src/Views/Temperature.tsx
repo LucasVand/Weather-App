@@ -4,6 +4,7 @@ import StaticBox from "../Components/StaticBox/StaticBox"
 import { weatherDataPromise, defaultWeather } from "../WeatherAPI"
 
 import './Temperature.css'
+import ProgressBar from "../Components/ProgressBar/ProgressBar"
 
 function TemperatureView() {
     const [weatherData, setWeatherData] = useState(defaultWeather)
@@ -24,13 +25,29 @@ function TemperatureView() {
         )
     }
 
+    const Sun = () => {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-sun" viewBox="0 0 16 16">
+                <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+            </svg>
+        )
+    }
+
+    const Thermometer = () => {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-thermometer-half" viewBox="0 0 16 16">
+                <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V6.5a.5.5 0 0 1 1 0v4.585a1.5 1.5 0 0 1 1 1.415" />
+                <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1" />
+            </svg>
+        )
+    }
 
     useEffect(() => {
         async function w() {
             weatherDataPromise
                 .then((value) => {
                     setWeatherData(value)
-                    console.log(value)
+
                 })
                 .catch(() => {
                     console.log('error fetching')
@@ -38,6 +55,25 @@ function TemperatureView() {
         }
         w()
     }, [])
+
+
+
+    const uvIndexSevarity = () => {
+        const uv = weatherData.hourly.uv_index[0]
+        if (uv < 3) {
+            return "Low"
+        } else if (uv < 6) {
+            return "Moderate"
+        } else if (uv < 8) {
+            return "High"
+        } else if (uv < 10) {
+            return "Very High"
+        } else {
+            return "Extreme"
+        }
+    }
+
+
     return (
         <>
             <StaticBox>
@@ -54,7 +90,7 @@ function TemperatureView() {
                                 <div className="weatherWidgetTitle"> <Cloud></Cloud> {"Precipitation"} </div>
                                 <div className="rainTotal">{weatherData.daily.precipitation[0].toFixed(0) + 'mm'}</div>
                                 <div style={{ fontSize: '0.5em' }}>in last 24 hours</div>
-                                <div style={{ fontSize: '1.4em' }}>{weatherData.hourly.precipitationChance[0].toFixed(0) + '%'}</div>
+                                <div style={{ fontSize: '1.4em' }}>{weatherData.daily.precipitation_probability_max[0].toFixed(0) + '%'}</div>
                             </div>
                         </StaticBox>
                         <StaticBox inset={true}>
@@ -70,18 +106,19 @@ function TemperatureView() {
                     <div className="weatherWidgetCont">
                         <StaticBox inset={true}>
                             <div className="weatherWidget">
-                                <div className="weatherWidgetTitle"> <Cloud></Cloud> {"Precipitation"} </div>
-                                <div className="rainTotal">{weatherData.daily.precipitation[0].toFixed(0) + 'mm'}</div>
-                                <div style={{ fontSize: '0.5em' }}>in last 24 hours</div>
-                                <div style={{ fontSize: '1.4em' }}>{weatherData.hourly.precipitationChance[0].toFixed(0) + '%'}</div>
+                                <div className="weatherWidgetTitle"> <Sun></Sun> {"UV Index"} </div>
+                                <div style={{ fontSize: '2.2em' }}>{weatherData.hourly.uv_index[0].toFixed(0)}</div>
+                                <div style={{ fontSize: '1.1em' }}>{uvIndexSevarity()}</div>
+                                <ProgressBar progress={weatherData.hourly.uv_index[0] / 11}></ProgressBar>
                             </div>
                         </StaticBox>
                         <StaticBox inset={true}>
                             <div className="weatherWidget">
-                                <div className="weatherWidgetTitle"> <Humidity></Humidity> {" Humidity"} </div>
-                                <div className="relitiveHumidityDesc">Relitive Humidity</div>
-                                <div style={{ fontSize: '2.4em', fontWeight: '600' }}>{weatherData.current.relative_humidity_2m.toFixed(0) + '%'}</div>
-                                <div style={{ fontSize: '0.7em' }}>{'Dew Point is ' + weatherData.hourly.dew_point[0].toFixed(0) + '°C'}</div>
+                                <div className="weatherWidgetTitle"> <Thermometer></Thermometer> {"Min and Max"} </div>
+                                <div style={{ fontSize: '0.4em' }}>Max Temperature</div>
+                                <div style={{ fontSize: '1.5em', fontWeight: '600' }}>{weatherData.daily.temperature_Max[0].toFixed(0) + '°C'}</div>
+                                <div style={{ fontSize: '0.4em' }}>Min Temperature</div>
+                                <div style={{ fontSize: '1.5em', fontWeight: '600' }}>{weatherData.daily.temperature_Min[0].toFixed(0) + '°C'}</div>
                             </div>
 
                         </StaticBox>

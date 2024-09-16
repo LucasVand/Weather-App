@@ -7,10 +7,10 @@ function App() {
 
   return (
     <>
-      <div style={{ display: 'flex' }}>
-        <Greeting></Greeting>
-        <TemperatureView></TemperatureView>
-      </div>
+
+      <Greeting></Greeting>
+      <TemperatureView></TemperatureView>
+
     </>
   )
 

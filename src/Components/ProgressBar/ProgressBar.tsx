@@ -1,14 +1,14 @@
 
-import StaticBox from '../StaticBox/StaticBox'
+
 import './ProgressBar.css'
 
 interface props {
-    height?: number,
+
     progress: number,
     children?: React.ReactNode
 }
 
-function ProgressBar({ height, progress, children }: props) {
+function ProgressBar({ progress, children }: props) {
 
     const percent = () => {
         if (progress > 1) {
@@ -21,18 +21,15 @@ function ProgressBar({ height, progress, children }: props) {
     }
     return (
         <>
-            <StaticBox height={height}>
-                <div className='progressCont'>
-                    <div className='progressChildren'>
-                        {children}
-                    </div>
-
-                    <div className='sliderBG'>
-                        <div className='slider' style={{ left: `${100 - percent()}%`, width: `${percent()}%` }}></div>
-                    </div>
+            <div className='progressCont'>
+                <div className='progressChildren'>
+                    {children}
                 </div>
-            </StaticBox>
 
+                <div className='sliderBG'>
+                    <div className='slider' style={{ left: `${100 - percent()}%`, width: `${percent()}%` }}></div>
+                </div>
+            </div>
         </>
     )
 }

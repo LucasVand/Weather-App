@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'https://lucasvand.github.io/Smarthome/',
+  base: 'https://lucasvand.github.io/Weather-App/',
   plugins: [react()],
 })
+
