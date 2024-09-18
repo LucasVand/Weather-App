@@ -2,14 +2,14 @@
 import { fetchWeatherApi } from "openmeteo"
 
 
-var apiCallCount = 0;
+
 
 export const defaultWeather: WeatherData = {
     current: {
         time: new Date(Date.now()),
-        temperature2m: 20,
-        relative_humidity_2m: 20,
-        apparent_temperature: 20,
+        temperature2m: 0,
+        relative_humidity_2m: 0,
+        apparent_temperature: 0,
 
     },
     location: {
@@ -30,9 +30,6 @@ export const defaultWeather: WeatherData = {
         precipitation_probability_max: new Float32Array(7)
 
     },
-    esp32Data: {
-        obstacle: false
-    }
 
 }
 
@@ -43,7 +40,7 @@ export interface WeatherData {
     location: Location
     hourly: Hourly
     daily: Daily
-    esp32Data: ESP32Data
+
 }
 interface Current {
     time: Date,
@@ -70,35 +67,26 @@ interface Daily {
     precipitation_probability_max: Float32Array
 }
 
-interface ESP32Data {
-    obstacle: boolean
-}
 
-var lat = 44.51857
-var long = -80.81476
-
-async function getWeather() {
-    apiCallCount++;
-    console.log(apiCallCount)
+var lat = 44.00523
+var long = -81.27308
 
 
+export async function getWeather(la: number, lo: number) {
+
+    lat = la
+    lo = long
     //Getting Location
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success)
-    }
-    else {
-        console.log('Cant Fetch Location')
-    }
+
+
+
 
     //Reverse Engineering Location
     const locationDataFetch = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
     const locationData = await locationDataFetch.json()
 
 
-    //esp32 Data
-    var esp32Data: ESP32Data = {
-        obstacle: false
-    }
+
 
 
     const params = {
@@ -147,22 +135,11 @@ async function getWeather() {
             temperature_Max: daily.variables(0)!.valuesArray() || new Float32Array(7),
             temperature_Min: daily.variables(1)!.valuesArray() || new Float32Array(7),
             precipitation_probability_max: daily.variables(3)!.valuesArray() || new Float32Array(7)
-        },
-        esp32Data: {
-            obstacle: esp32Data.obstacle
         }
     };
 
 
     return weatherData
 }
-
-function success(position: any) {
-    lat = position.coords.latitude
-    long = position.coords.longitude
-}
-
-export var weatherDataPromise = getWeather()
-
 
 

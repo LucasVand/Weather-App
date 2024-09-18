@@ -1,10 +1,11 @@
 import StaticBox from "../Components/StaticBox/StaticBox"
-import { useState, useEffect } from "react"
-import { weatherDataPromise, defaultWeather } from "../WeatherAPI"
+
+import { WeatherData } from "../WeatherAPI"
 
 import './Greeting.css'
 
-function Greeting() {
+function Greeting(weatherData: WeatherData) {
+
     const time: Date = new Date()
     const timeOfDayMessage = () => {
         if (time.getHours() < 12) {
@@ -25,22 +26,6 @@ function Greeting() {
             return [time.getHours(), 'AM'];
         }
     }
-    const [weatherData, setWeatherData] = useState(defaultWeather)
-
-
-    useEffect(() => {
-        async function w() {
-            weatherDataPromise
-                .then((value) => {
-                    setWeatherData(value)
-
-                })
-                .catch(() => {
-                    console.log('error fetching')
-                })
-        }
-        w()
-    }, [])
 
     return (
         <>
@@ -51,6 +36,7 @@ function Greeting() {
                         <div style={{ fontSize: '0.6em' }}> {days[time.getDay()] + ' ' + months[time.getMonth()] + ' ' + time.getDate() + ' ' + hour()[0] + ':' + (time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes()) + ' ' + hour()[1]} </div>
                     </div>
                     <div className="cityText">{weatherData.location.locationData.city + ', ' + weatherData.location.locationData.principalSubdivision + ', ' + weatherData.location.locationData.countryCode}</div>
+
 
                 </div>
             </StaticBox>

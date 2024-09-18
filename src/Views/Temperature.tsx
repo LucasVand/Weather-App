@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react"
+
 import StaticBox from "../Components/StaticBox/StaticBox"
 
-import { weatherDataPromise, defaultWeather } from "../WeatherAPI"
+import { WeatherData } from "../WeatherAPI"
 
 import './Temperature.css'
 import ProgressBar from "../Components/ProgressBar/ProgressBar"
 
-function TemperatureView() {
-    const [weatherData, setWeatherData] = useState(defaultWeather)
+function TemperatureView(weatherData: WeatherData) {
+    var time: Date = new Date()
+
 
     const Cloud = () => {
         return (
@@ -42,19 +43,6 @@ function TemperatureView() {
         )
     }
 
-    useEffect(() => {
-        async function w() {
-            weatherDataPromise
-                .then((value) => {
-                    setWeatherData(value)
-
-                })
-                .catch(() => {
-                    console.log('error fetching')
-                })
-        }
-        w()
-    }, [])
 
 
 
@@ -98,7 +86,7 @@ function TemperatureView() {
                                 <div className="weatherWidgetTitle"> <Humidity></Humidity> {" Humidity"} </div>
                                 <div className="relitiveHumidityDesc">Relitive Humidity</div>
                                 <div style={{ fontSize: '2.4em', fontWeight: '600' }}>{weatherData.current.relative_humidity_2m.toFixed(0) + '%'}</div>
-                                <div style={{ fontSize: '0.7em' }}>{'Dew Point is ' + weatherData.hourly.dew_point[0].toFixed(0) + '°C'}</div>
+                                <div style={{ fontSize: '0.7em' }}>{'Dew Point is ' + weatherData.hourly.dew_point[time.getHours() - 1].toFixed(0) + '°C'}</div>
                             </div>
 
                         </StaticBox>
@@ -107,18 +95,18 @@ function TemperatureView() {
                         <StaticBox inset={true}>
                             <div className="weatherWidget">
                                 <div className="weatherWidgetTitle"> <Sun></Sun> {"UV Index"} </div>
-                                <div style={{ fontSize: '2.2em' }}>{weatherData.hourly.uv_index[0].toFixed(0)}</div>
+                                <div style={{ fontSize: '2.2em' }}>{weatherData.hourly.uv_index[time.getHours() - 1].toFixed(0)}</div>
                                 <div style={{ fontSize: '1.1em' }}>{uvIndexSevarity()}</div>
-                                <ProgressBar progress={weatherData.hourly.uv_index[0] / 11}></ProgressBar>
+                                <ProgressBar progress={weatherData.hourly.uv_index[time.getHours() - 1] / 11}></ProgressBar>
                             </div>
                         </StaticBox>
                         <StaticBox inset={true}>
                             <div className="weatherWidget">
                                 <div className="weatherWidgetTitle"> <Thermometer></Thermometer> {"Min and Max"} </div>
-                                <div style={{ fontSize: '0.4em' }}>Max Temperature</div>
-                                <div style={{ fontSize: '1.5em', fontWeight: '600' }}>{weatherData.daily.temperature_Max[0].toFixed(0) + '°C'}</div>
-                                <div style={{ fontSize: '0.4em' }}>Min Temperature</div>
-                                <div style={{ fontSize: '1.5em', fontWeight: '600' }}>{weatherData.daily.temperature_Min[0].toFixed(0) + '°C'}</div>
+                                <div style={{ fontSize: '0.45em' }}>Max Temperature</div>
+                                <div style={{ fontSize: '1.55em', fontWeight: '600' }}>{weatherData.daily.temperature_Max[0].toFixed(0) + '°C'}</div>
+                                <div style={{ fontSize: '0.45em' }}>Min Temperature</div>
+                                <div style={{ fontSize: '1.55em', fontWeight: '600', marginBottom: '0.1em' }}>{weatherData.daily.temperature_Min[0].toFixed(0) + '°C'}</div>
                             </div>
 
                         </StaticBox>
