@@ -73,12 +73,8 @@ var long = -81.27308
 
 
 export async function getWeather(la: number, lo: number) {
-
+    long = lo
     lat = la
-    lo = long
-    //Getting Location
-
-
 
 
     //Reverse Engineering Location

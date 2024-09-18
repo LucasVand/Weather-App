@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Greeting from './Views/Greeting'
 import TemperatureView from './Views/Temperature'
 import { defaultWeather, getWeather } from './WeatherAPI'
@@ -11,6 +11,7 @@ function App() {
   const [weatherData, setWeatherData] = useState(defaultWeather)
 
   const [weatherGot, setWeatherGot] = useState(false)
+  const [error, setError] = useState(false)
 
   async function getWeatherComp(la: number, lo: number) {
 
@@ -23,9 +24,19 @@ function App() {
       })
       .catch(() => {
         console.log('error fetching')
+        setError(true)
       })
   }
 
+  const locationMessage = () => {
+    var text = 'This will prompt you to allow your location to be used'
+    if (error) {
+      text = 'Please allow for your location to be used'
+    }
+    return (
+      <span style={{ fontSize: '0.3em' }}>{text}</span>
+    )
+  }
 
   return (
     <>
@@ -49,7 +60,9 @@ function App() {
                 console.log('Cant Fetch Location')
               }
 
-            }}> <div className='findButtonText'>Find For Me</div></Button>
+            }}> <div className='findButtonText'>Find For Me <br></br>{locationMessage()}</div>
+
+            </Button>
             <div style={{ height: '1em' }}></div>
 
           </div>
