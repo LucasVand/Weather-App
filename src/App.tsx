@@ -24,7 +24,7 @@ function App() {
       })
       .catch(() => {
         console.log('error fetching')
-        setError(true)
+
       })
   }
 
@@ -34,7 +34,7 @@ function App() {
       text = 'Please allow for your location to be used'
     }
     return (
-      <span style={{ fontSize: '0.3em' }}>{text}</span>
+      <span style={{ fontSize: '0.2em' }}>{text}</span>
     )
   }
 
@@ -47,7 +47,7 @@ function App() {
 
         <StaticBox>
           <div className='locationPrompt'>
-            <div className='cordTitle'>Find Location</div>
+            <div className='cordTitle'>Weather App</div>
 
             <Button onClick={() => {
               if (navigator.geolocation) {
@@ -58,9 +58,10 @@ function App() {
               }
               else {
                 console.log('Cant Fetch Location')
+                setError(true)
               }
 
-            }}> <div className='findButtonText'>Find For Me <br></br>{locationMessage()}</div>
+            }}> <div className='findButtonText'>Allow Location<br></br>{locationMessage()}</div>
 
             </Button>
             <div style={{ height: '1em' }}></div>

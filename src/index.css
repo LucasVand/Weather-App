@@ -5,7 +5,9 @@
   font-size: 2.0vh;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+
+  color: rgb(161, 127, 194);
+
 
   background-image: linear-gradient(-45deg, rgb(38, 40, 44), rgb(51, 54, 59));
   background-repeat: no-repeat;
@@ -18,6 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 
 }
 
@@ -62,18 +65,22 @@
 }
 
 .cordTitle {
-  font-size: 3.5em;
+  font-size: 3.3em;
   font-weight: 600;
   margin: 1em;
 }
 
 .findButtonText {
   font-weight: 700;
-  font-size: 2em;
+  font-size: 1.8em;
   margin-left: 1.3em;
   margin-right: 1.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
 }
 
